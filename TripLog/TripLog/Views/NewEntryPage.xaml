@@ -7,21 +7,43 @@
              x:Class="TripLog.Views.NewEntryPage"
              Title="New Entry">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save" />
+        <ToolbarItem Text="Save" Command="{Binding SaveCommand}"/>
     </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
-        <TableView Intent="Form">
+        <TableView Intent="Form" HasUnevenRows="True">
             <TableView.Root>
                 <TableSection>
-                    <EntryCell Label="Title"/>
-                    <EntryCell Label="Latitude"
+                    <EntryCell x:Name="title" Label="Title:"
+                               Text="{Binding Title}" />
+                    <EntryCell Label="Latitude:"
+                               Text="{Binding Latitude}"
                         Keyboard="Numeric" />
-                    <EntryCell Label="Longitude"
+                    <EntryCell Label="Longitude:"
+                               Text="{Binding Longitude}"
                         Keyboard="Numeric" />
-                    <EntryCell Label="Date" />
-                    <EntryCell Label="Rating"
+                    <EntryCell Label="Date:" 
+                               Text="{Binding Date, StringFormat='{0:d}'}"/>
+                    <EntryCell x:Name="rating" Label="Rating:"
+                               Text="{Binding Rating}"
                         Keyboard="Numeric" />
-                    <EntryCell Label="Notes" />
+                    <EntryCell Label="Notes:" Text="{Binding Notes}"/>
+                    <!--<ViewCell >
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            --><!--<BoxView Grid.Column="0" BackgroundColor="PaleVioletRed"/>
+                            <BoxView Grid.Column="1" BackgroundColor="PaleVioletRed"/>--><!--
+                            <Label Grid.Column="0" Margin="15" Text="Rating:"/>
+                            <Entry Grid.ColumnSpan="2" Margin="60,0,0,0"/>
+                            <Label Grid.ColumnSpan="2" Grid.Row="1" Margin="60,0,0,0" Text="Rating must be between 1 and 5" IsVisible="true" TextColor="Red"/>
+                        </Grid>
+                    </ViewCell>-->
                 </TableSection>
             </TableView.Root>
         </TableView>

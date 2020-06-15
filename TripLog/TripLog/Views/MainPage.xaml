@@ -11,6 +11,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <CollectionView x:Name="trips" SelectionMode="Single"
+                        ItemsSource="{Binding LogEntries}"
                         SelectionChanged="Trips_SelectionChanged">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
