@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using TripLog.Models;
+using TripLog.Services;
 using Xamarin.Forms;
 
 namespace TripLog.ViewModels
 {
     public class NewEntryViewModel : BaseValidationViewModel
     {
+        #region Properties
         private string _title;
         public string Title
         {
@@ -74,18 +77,23 @@ namespace TripLog.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        #endregion
         private Command _saveCommand;
         //if _saveCommand == null then execute right part
-        public Command SaveCommand => _saveCommand ?? (_saveCommand = new Command(Save, CanSave));
+        public Command SaveCommand => _saveCommand ?? (_saveCommand = 
+            new Command(async () => await Save(), CanSave));
 
-        public NewEntryViewModel()
+        public NewEntryViewModel(INavService navService) : base(navService)
         {
             Date = DateTime.Today;
             Rating = 1;
         }
 
-        private void Save()
+        public override void Init()
+        {
+        }
+
+        private async Task Save()
         {
             var newItem = new TripLogEntry()
             {
@@ -96,7 +104,7 @@ namespace TripLog.ViewModels
                 Rating = Rating,
                 Notes = Notes
             };
-            //TODO implement persist entry
+            await NavService.GoBack();
         }
         //CanSave determinates if the command can be executed or not
         bool CanSave() => !string.IsNullOrWhiteSpace(Title) && !HasErrors;

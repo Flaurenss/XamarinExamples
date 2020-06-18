@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using TripLog.Models;
+using TripLog.Services;
 
 namespace TripLog.ViewModels
 {
-    public class DetailViewModel : BaseViewModel
+    public class DetailViewModel : BaseViewModel<TripLogEntry>
     {
         private TripLogEntry _entry;
         public TripLogEntry Entry
@@ -18,9 +19,13 @@ namespace TripLog.ViewModels
             }
         }
 
-        public DetailViewModel(TripLogEntry entry)
+        public DetailViewModel(INavService navService) : base(navService)
         {
-            Entry = entry;
+        }
+
+        public override void Init(TripLogEntry param)
+        {
+            Entry = param;
         }
     }
 }

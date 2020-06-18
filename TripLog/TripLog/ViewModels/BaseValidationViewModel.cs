@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using TripLog.Services;
 
 namespace TripLog.ViewModels
 {
@@ -16,7 +17,7 @@ namespace TripLog.ViewModels
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
-        public BaseValidationViewModel()
+        public BaseValidationViewModel(INavService navService) : base(navService)
         {
 
         }
@@ -36,7 +37,7 @@ namespace TripLog.ViewModels
             return new List<string>();
         }
         /// <summary>
-        /// Validation action adding to our dictionary in case it fails
+        /// Validation action adding the error to our dictionary in case it fails
         /// </summary>
         /// <param name="validationRule"></param>
         /// <param name="errorMessage"></param>
