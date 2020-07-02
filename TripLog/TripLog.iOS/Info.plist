@@ -34,5 +34,7 @@
     <string>TripLog</string>
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>TripLog needs to access to your current location</string>
 </dict>
 </plist>

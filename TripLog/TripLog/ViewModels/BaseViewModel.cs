@@ -32,7 +32,7 @@ namespace TripLog.ViewModels
 
         public override void Init()
         {
-            Init(default);
+            Init(default(TParameter));
         }
 
         public virtual void Init(TParameter parameter)

@@ -77,20 +77,33 @@ namespace TripLog.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        readonly ILocationService _locService;
         #endregion
         private Command _saveCommand;
         //if _saveCommand == null then execute right part
         public Command SaveCommand => _saveCommand ?? (_saveCommand = 
             new Command(async () => await Save(), CanSave));
 
-        public NewEntryViewModel(INavService navService) : base(navService)
+        public NewEntryViewModel(INavService navService, ILocationService locService) : base(navService)
         {
             Date = DateTime.Today;
             Rating = 1;
+            _locService = locService;
         }
 
-        public override void Init()
+        public override async void Init()
         {
+            try
+            {
+                var coords = await _locService.GetGeoCoordinatesAsync();
+                Latitude = coords.Latitude;
+                Longitude = coords.Longitude;
+            }
+            catch(Exception)
+            {
+                //TODO handle exception
+            }
         }
 
         private async Task Save()

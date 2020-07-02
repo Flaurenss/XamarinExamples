@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 using TripLog.Models;
 using TripLog.Services;
 using Xamarin.Forms;
@@ -24,7 +25,7 @@ namespace TripLog.ViewModels
         public Command<TripLogEntry> ViewCommand => new Command<TripLogEntry>
             (async entry => await NavService.NavigateTo<DetailViewModel,TripLogEntry>(entry));
 
-        public Command NewEntryCommand => new Command(async () => await NavService.NavigateTo<NewEntryViewModel>());
+        public Command NewEntryCommand => new Command( async() => await NavService.NavigateTo<NewEntryViewModel>());
 
         public MainViewModel(INavService navService) : base(navService)
         {

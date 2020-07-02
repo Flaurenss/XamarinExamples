@@ -10,7 +10,6 @@ using TripLog.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(XamarinFormsNavService))]
 namespace TripLog.Services
 {
     public class XamarinFormsNavService : INavService
@@ -98,10 +97,11 @@ namespace TripLog.Services
                 throw new ArgumentException("No view found in view mapping for " + viewModelType.Name + ".");
             }
             //Use reflection to get Views constructor and create the view (searching for a constructor without an enter param)
-            //var dec = viewType.GetTypeInfo().DeclaredConstructors;
-            //var g = dec.FirstOrDefault(z =>!z.GetParameters().Any());
             var constructor = viewType.GetTypeInfo().DeclaredConstructors.FirstOrDefault(x => !x.GetParameters().Any());
             var view = constructor.Invoke(null) as Page;
+            //Get a new instance of the specified view model
+            var vm = ((App)Application.Current).Kernel.GetService(viewModelType);
+            view.BindingContext = vm;
             await XamarinFormsNav.PushAsync(view, true);
         }
 
